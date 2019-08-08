@@ -1,5 +1,5 @@
 // Create chart instance
-var chart = am4core.create("chartdiv2", am4charts.XYChart);
+var chart = am4core.create("chartTrends", am4charts.XYChart);
 
 // Add data
 chart.data = [{
