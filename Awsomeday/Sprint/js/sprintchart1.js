@@ -1,24 +1,32 @@
-am4core.ready(function() {
+/**
+ * ---------------------------------------
+ * This demo was created using amCharts 4.
+ *
+ * For more information visit:
+ * https://www.amcharts.com/
+ *
+ * Documentation is available at:
+ * https://www.amcharts.com/docs/v4/
+ * ---------------------------------------
+ */
 
-// Themes begin
 am4core.useTheme(am4themes_animated);
-// Themes end
 
-var chart = am4core.create("chartdiv1", am4charts.XYChart);
+var chart = am4core.create("chartdiv1", am4charts.PieChart3D);
 chart.hiddenState.properties.opacity = 0; // this creates initial fade-in
 
 chart.data = [
-  {
+    {
     sprint: "Sprint1",
     trends: 90
   },
   {
     sprint: "Sprint2",
-    trends: 79
+    trends: 59
   },
   {
     sprint: "Sprint3",
-    trends: 81
+    trends: 11
   },
   {
     sprint: "Sprint4",
@@ -26,57 +34,15 @@ chart.data = [
   }
 ];
 
-var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
-categoryAxis.renderer.grid.template.location = 0;
-categoryAxis.dataFields.category = "sprint";
-categoryAxis.renderer.minGridDistance = 40;
-categoryAxis.fontSize = 11;
+chart.innerRadius = am4core.percent(40);
+chart.depth = 120;
 
-var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
-valueAxis.min = 0;
-valueAxis.max = 100;
-valueAxis.strictMinMax = true;
-valueAxis.renderer.minGridDistance = 30;
-// axis break
-//var axisBreak = valueAxis.axisBreaks.create();
-//axisBreak.startValue = 2100;
-//axisBreak.endValue = 22900;
-//axisBreak.breakSize = 0.005;
+chart.legend = new am4charts.Legend();
+chart.legend.position = "right";
 
-// make break expand on hover
-//var hoverState = axisBreak.states.create("hover");
-//hoverState.properties.breakSize = 1;
-//hoverState.properties.opacity = 0.1;
-//hoverState.transitionDuration = 1500;
-
-//axisBreak.defaultState.transitionDuration = 1000;
-/*
-// this is exactly the same, but with events
-axisBreak.events.on("over", function() {
-  axisBreak.animate(
-    [{ property: "breakSize", to: 1 }, { property: "opacity", to: 0.1 }],
-    1500,
-    am4core.ease.sinOut
-  );
-});
-axisBreak.events.on("out", function() {
-  axisBreak.animate(
-    [{ property: "breakSize", to: 0.005 }, { property: "opacity", to: 1 }],
-    1000,
-    am4core.ease.quadOut
-  );
-});*/
-
-var series = chart.series.push(new am4charts.ColumnSeries());
-series.dataFields.categoryX = "sprint";
-series.dataFields.valueY = "trends";
-series.columns.template.tooltipText = "{valueY.value}";
-series.columns.template.tooltipY = 0;
-series.columns.template.strokeOpacity = 0;
-
-// as by default columns of the same series are of the same color, we add adapter which takes colors from chart.colors color set
-series.columns.template.adapter.add("fill", function(fill, target) {
-  return chart.colors.getIndex(target.dataItem.index);
-});
-
-}); // end am4core.ready()
+var series = chart.series.push(new am4charts.PieSeries3D());
+series.dataFields.value = "trends";
+series.dataFields.depthValue = "trends";
+series.dataFields.category = "sprint";
+series.slices.template.cornerRadius = 5;
+series.colors.step = 3;

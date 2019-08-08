@@ -14,11 +14,11 @@ chart.data = [
   },
   {
     sprint: "Sprint2",
-    trends: 79
+    trends: 23
   },
   {
     sprint: "Sprint3",
-    trends: 81
+    trends: 50
   },
   {
     sprint: "Sprint4",
