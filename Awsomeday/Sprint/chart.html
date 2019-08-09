@@ -1,19 +1,23 @@
+<!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8"/>
-		<meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no"/>
-		<title>sprint chart</title>
-		<meta charset="utf-8"/>
-		<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-		<meta name="viewport" content="width=device-width, initial-scale=1"/>
-		<meta name="description" content="Sprint Chart - Serverless web application"/>
-		<meta name="author" content="Libin Lougine L"/>
-		
-		<link rel = "stylesheet" type = "text/css" href = "./css/sprintchart.css" />
-		<link rel="stylesheet" href="css/message.css"/>
-	</head>
-	<body>
-	    <div class="info panel panel-default">
+
+<head>
+	<meta charset="utf-8"/>
+	<meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no"/>
+	<title>sprint chart</title>
+	<meta charset="utf-8"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+	<meta name="description" content="Sprint Chart - Serverless web application"/>
+	<meta name="author" content="Libin Lougine L"/>
+	
+	<link rel = "stylesheet" type = "text/css" href = "./css/sprintchart.css" />
+	<link rel="stylesheet" href="./css/message.css"/>
+</head>
+
+<body>
+
+    <div class="info panel panel-default">
         <div class="panel-heading">
             <div class="dropdown pull-right">
                 <button id="accountLink" class="btn" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -25,91 +29,90 @@
             </div>
         </div>
     </div>
-	
-		<div id="noApiMessage" class="configMessage" style="display: none;">
-			<div class="backdrop"/>
-			<div class="panel panel-default">
-				<div class="panel-heading">
-					<h3 class="panel-title">Successfully Authenticated!</h3>
+
+    <div id="noApiMessage" class="configMessage" style="display: none;">
+        <div class="backdrop"></div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Successfully Authenticated!</h3>
+            </div>
+            <div class="panel-body">
+                <p>This page is not functional yet because there is no API invoke URL configured in <a href="/js/config.js">/js/config.js</a>. You'll configure this in Module 3.</p>
+                <p>In the meantime, if you'd like to test the Amazon Cognito user pool authorizer for your API, use the auth token below:</p>
+                <textarea class="authToken"></textarea>
+            </div>
+        </div>
+    </div>
+
+    <div id="noCognitoMessage" class="configMessage" style="display: none;">
+        <div class="backdrop"></div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">No Cognito User Pool Configured</h3>
+            </div>
+            <div class="panel-body">
+                <p>There is no user pool configured in <a href="/js/config.js">/js/config.js</a>. You'll configure this in Module 2 of the workshop.</p>
+            </div>
+        </div>
+    </div>
+
+	<div id="main">
+		<div id="chart">
+			<div id="row">
+				<div id="column">
+					<div id="chartTrends"> </div>
 				</div>
-				<div class="panel-body">
-					<p>This page is not functional yet because there is no API invoke URL configured in <a href="/js/config.js">/js/config.js</a>. You'll configure this in Module 3.</p>
-					<p>In the meantime, if you'd like to test the Amazon Cognito user pool authorizer for your API, use the auth token below:</p>
-					<textarea class="authToken"/>
+				<div id="column">
+					<div id="chartSuccessRate"></div>
+				</div>
+			</div>
+			<div id="row">
+				<div id="column">
+					<div id="chartScopeChange"></div>
+				</div>
+				<div id="column">
+					<div id="chartPriority"></div>
 				</div>
 			</div>
 		</div>
+	</div>
 
-		<div id="noCognitoMessage" class="configMessage" style="display: none;">
-			<div class="backdrop"/>
-			<div class="panel panel-default">
-				<div class="panel-heading">
-					<h3 class="panel-title">No Cognito User Pool Configured</h3>
-				</div>
-				<div class="panel-body">
-					<p>There is no user pool configured in <a href="/js/config.js">/js/config.js</a>. You'll configure this in Module 2 of the workshop.</p>
-				</div>
-			</div>
-		</div>
+    <div id="authTokenModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="authToken">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Your Auth Token</h4>
+                </div>
+                <div class="modal-body">
+                    <textarea class="authToken"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
-		<div id="main">
-			<div id="chart">
-				<div id="row">
-					<div id="column">
-						<div id="chartTrends"/>
-					</div>
-					<div id="column">
-						<div id="chartSuccessRate"/>
-					</div>
-				</div>
-				<div id="row">
-					<div id="column">
-						<div id="chartScopeChange"/>
-					</div>
-					<div id="column">
-						<div id="chartPriority"/>
-					</div>
-				</div>
-			</div>
-		</div>
+  
+	<script src="./js/vendor/jquery-3.1.0.js"></script>
+	<script src="./js/vendor/bootstrap.min.js"></script>
 
-		<div id="authTokenModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="authToken">
-			<div class="modal-dialog" role="document">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-						<h4 class="modal-title" id="myModalLabel">Your Auth Token</h4>
-					</div>
-					<div class="modal-body">
-						<textarea class="authToken"/>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-					</div>
-				</div>
-			</div>
-		</div>
+	<script src="https://www.amcharts.com/lib/4/core.js"></script>
+	<script src="https://www.amcharts.com/lib/4/charts.js"></script>
+	<script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
+	<script src="https://www.amcharts.com/lib/4/themes/material.js"></script>
+	<script src="https://www.amcharts.com/lib/4/lang/de_DE.js"></script>
+	<script src="https://www.amcharts.com/lib/4/geodata/germanyLow.js"></script>
 
-		<script src="js/vendor/jquery-3.1.0.js"/>
-		<script src="js/vendor/bootstrap.min.js"/>
-		<script src="js/vendor/aws-cognito-sdk.min.js"/>
-		<script src="js/vendor/amazon-cognito-identity.min.js"/>
-		<script src="js/config.js"/>
-		<script src="js/chart.js"/>
-
-		<script src="https://www.amcharts.com/lib/4/core.js"/>
-		<script src="https://www.amcharts.com/lib/4/charts.js"/>
-		<script src="https://www.amcharts.com/lib/4/themes/animated.js"/>
-		<script src="https://www.amcharts.com/lib/4/themes/material.js"/>
-		<script src="https://www.amcharts.com/lib/4/lang/de_DE.js"/>
-		<script src="https://www.amcharts.com/lib/4/geodata/germanyLow.js"/>
-
-		<script src="./js/chart/chartTrends.js"/>
-		<script src="./js/chart/chartSuccessRate.js"/>
-		<script src="./js/chart/chartScopeChange.js"/>
-		<script src="./js/chart/chartPriority.js"/>
-	</body>
+	<script src="./js/chart/chartTrends.js"></script>
+	<script src="./js/chart/chartSuccessRate.js"></script>
+	<script src="./js/chart/chartScopeChange.js"></script>
+	<script src="./js/chart/chartPriority.js"></script>
+	<script src="./js/vendor/aws-cognito-sdk.min.js"></script>
+	<script src="./js/vendor/amazon-cognito-identity.min.js"></script>
+	<script src="./js/config.js"></script>
+	<script src="./js/sprint-chart.js"></script>
+</body>
 </html>
