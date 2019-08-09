@@ -29,6 +29,7 @@ Backend:
 --------
 1. create dynamoDB:
 arn:aws:dynamodb:us-east-1:743144174017:table/Sprint
+
 2.Iam create role:
 -select lamda and permission.
 -select AWSLambdaBasicExecutionRole 
@@ -63,3 +64,9 @@ Create REST api:
  e. deploy using action dropdown
    -deploy with stag as prod
    https://9f9zizzseb.execute-api.us-east-1.amazonaws.com/prod
+   
+   
+   
+refer: 
+https://www.baeldung.com/aws-lambda-dynamodb-java   
+https://github.com/eugenp/tutorials/blob/master/aws-lambda/src/main/java/com/baeldung/lambda/dynamodb/bean/PersonRequest.java  
