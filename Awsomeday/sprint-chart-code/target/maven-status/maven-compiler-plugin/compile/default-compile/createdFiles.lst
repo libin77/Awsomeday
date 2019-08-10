@@ -1,0 +1,3 @@
+com\amazonaws\lambda\bean\ChartType.class
+com\amazonaws\lambda\bean\VelocityChart.class
+com\amazonaws\lambda\demo\LambdaFunctionHandler.class
